@@ -1,23 +1,37 @@
 # NovelRina
 
-NovelRina is a web app for writers to manage novels and chapters, generate chapter summaries, and chat with an AI assistant about novel content.
+> **Your stories, organized. Your next idea, one conversation away.**
 
-## Project structure
+NovelRina is a writing workspace for managing novels and chapters, editing drafts, generating chapter summaries, and chatting with an AI assistant grounded in your story.
 
-- [`frontend/`](./frontend/README.md) — Vue 3 and TypeScript web application.
-- [`backend/`](./backend/README.md) — FastAPI API for AI summaries, embeddings, and novel chat.
+![NovelRina novel dashboard](./preview/novel_dashboard.png)
 
-The frontend uses Supabase for authentication and data access. The backend verifies Supabase user tokens and calls Supabase and AI providers for its features.
+## A closer look
 
-## Getting started
+| Your writing home | A focused editor |
+|:---:|:---:|
+| ![Novel dashboard](./preview/novel_dashboard.png) | ![Chapter editor](./preview/editor_panel.png) |
 
-See the component guides for setup and environment variables:
+| AI chapter summaries | Chat with your story |
+|:---:|:---:|
+| ![AI summarization panel](./preview/ai_summarization_panel.png) | [![AI chat preview — open the video](./preview/ai_chat.jpg)](./preview/ai-chat.mp4) |
 
-- [Frontend setup and deployment](./frontend/README.md)
-- [Backend setup and deployment](./backend/README.md)
+*Select the AI chat preview to open the video demo.*
 
-Run the frontend and backend separately during local development. The frontend expects the API at `http://localhost:8000` by default.
+![NovelRina writing tools menu](./preview/menu.png)
 
-## Deployment overview
+## Made for the writing process
 
-Deploy the frontend as a static site (for example, Cloudflare Pages) and the FastAPI backend as a web service (for example, Render). Configure the frontend's `VITE_SERVER_URL` with the deployed API URL, set the backend's allowed CORS origin to the deployed frontend URL, and configure each service's environment variables in its hosting provider.
+- **Keep your work together** — organize novels and chapters in one workspace.
+- **Stay in the flow** — edit chapters in a dedicated writing interface.
+- **Find the thread again** — generate AI summaries of your chapters.
+- **Explore your story** — chat with an AI assistant about your novel.
+
+## Get started
+
+NovelRina runs as two applications during local development. Follow each guide for requirements, environment variables, and deployment instructions:
+
+- [Frontend setup and deployment](./frontend/README.md) — Vue 3, TypeScript, and Vite.
+- [Backend setup and deployment](./backend/README.md) — FastAPI service for summaries and novel chat.
+
+The frontend uses Supabase for authentication and data access. The backend verifies Supabase user tokens and connects to Supabase and AI providers. By default, the frontend expects the backend at `http://localhost:8000`.
