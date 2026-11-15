@@ -4,13 +4,13 @@
 
 NovelRina is a writing workspace for managing novels and chapters, editing drafts, generating chapter summaries, and chatting with an AI assistant grounded in your story.
 
-![NovelRina novel dashboard](./preview/novel_dashboard.png)
+![NovelRina chapter dashboard](./preview/chapter-dashboard.jpg)
 
 ## A closer look
 
 | Your writing home | A focused editor |
 |:---:|:---:|
-| ![Novel dashboard](./preview/chapter_dashboard.jpg) | ![Chapter editor](./preview/editor_panel.png) |
+| ![Chapter dashboard](./preview/chapter-dashboard.jpg) | ![Chapter editor](./preview/editor_panel.png) |
 
 | AI chapter summaries | Chat with your story |
 |:---:|:---:|
