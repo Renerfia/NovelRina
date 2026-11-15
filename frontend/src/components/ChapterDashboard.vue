@@ -1,9 +1,9 @@
 <template>
-  <article v-if="selected_chapter" class="chapter-dashboard">
+  <article v-if="props.selected_chapter" class="chapter-dashboard">
     <header class="dashboard-header">
       <div>
         <p class="eyebrow">Chapter dashboard</p>
-        <h1>{{ selected_chapter.chapter_name }}</h1>
+        <h1>{{ props.selected_chapter.chapter_name }}</h1>
       </div>
       <span class="status-pill">Selected</span>
     </header>
@@ -14,7 +14,7 @@
           <h2>Chapter content</h2>
         </div>
         <div class="chapter-content-wrapper">
-          <p class="chapter-content">{{ selected_chapter.chapter_content }}</p>
+          <p class="chapter-content">{{ props.selected_chapter.chapter_content }}</p>
         </div>
       </section>
 
@@ -22,12 +22,12 @@
         <h2>Details</h2>
         <dl>
           <div>
-            <dt>Chapter ID</dt>
-            <dd>{{ selected_chapter.chapter_id }}</dd>
+            <dt>Word count</dt>
+            <dd>{{ chapterWordCount }}</dd>
           </div>
           <div>
-            <dt>Novel ID</dt>
-            <dd>{{ selected_chapter.novel_id }}</dd>
+            <dt>Summary</dt>
+            <dd>{{ hasSummary ? 'Available' : 'Not available' }}</dd>
           </div>
         </dl>
       </aside>
@@ -43,10 +43,18 @@
 
 <script setup lang="ts">
 import type { Chapter } from '@/composables/useChapter'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   selected_chapter: Chapter | null
 }>()
+
+const chapterWordCount = computed(
+  () => props.selected_chapter?.chapter_content.match(/\S+/g)?.length ?? 0,
+)
+const hasSummary = computed(
+  () => Boolean(props.selected_chapter?.chapter_content_summary?.trim()),
+)
 </script>
 
 <style scoped>
