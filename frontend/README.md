@@ -1,54 +1,54 @@
-# NovelRina
+# NovelRina Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+The frontend is a Vue 3 single-page application built with TypeScript and Vite. It provides the novel and chapter interface, Supabase authentication, chapter editing, AI summaries, and chat.
 
-## Recommended IDE Setup
+## Requirements
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Node.js `^22.18.0` or `>=24.12.0`
+- npm
 
-## Recommended Browser Setup
+## Local development
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+From this directory:
 
 ```sh
-npm install
+npm ci
 ```
 
-### Compile and Hot-Reload for Development
+Create a `.env.local` file with the frontend's public configuration:
+
+```dotenv
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+VITE_SERVER_URL=http://localhost:8000
+```
+
+`VITE_SERVER_URL` is optional for local development; the app defaults to `http://localhost:8000`. The Supabase URL and publishable key are required. Do not put secret/service-role keys in frontend environment variables. Keep `.env.local` out of source control.
+
+Start the development server:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Checks and production build
 
 ```sh
+npm run type-check
+npm run test:unit
+npm run lint
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+The production files are written to `dist/`.
 
-```sh
-npm run test:unit
-```
+## Cloudflare Pages
 
-### Lint with [ESLint](https://eslint.org/)
+Connect the repository to Cloudflare Pages and configure:
 
-```sh
-npm run lint
-```
+- Root directory: `frontend`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Environment variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, and `VITE_SERVER_URL`
+
+Set `VITE_SERVER_URL` to the deployed backend's public URL, then redeploy the frontend after changing it. The backend must allow the Pages site's origin through its CORS configuration.
