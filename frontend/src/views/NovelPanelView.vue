@@ -73,7 +73,9 @@ import SummarizationPanel from '@/components/SummarizationPanel.vue'
 import ChatPanel from '@/components/ChatPanel.vue'
 import { useAuth } from '@/composables/useAuth'
 import EditorPanel from '@/components/EditorPanel.vue'
+import { useToast } from 'primevue'
 
+const toast = useToast()
 const route = useRoute()
 const router = useRouter()
 const novel = ref<Novel | null>(null)
@@ -106,6 +108,19 @@ async function updateChapter(chapter: Chapter) {
 
   if (result.data) {
     selected_chapter.value = result.data
+    toast.add({
+      severity: 'success',
+      summary: 'Chapter saved',
+      detail: 'Your chapter has been updated.',
+      life: 3000,
+    })
+  } else {
+    toast.add({
+      severity: 'error',
+      summary: 'Chapter save failed',
+      detail: result.error,
+      life: 5000,
+    })
   }
 }
 

@@ -32,28 +32,24 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to) => {
   const { isLoggedIn, loading } = useAuth()
 
   if (loading.value) {
-    // Wait for the loading state to finish before proceeding
-    const unwatch = watch(loading, (newLoading) => {
-      if (!newLoading) {
-        unwatch() // Stop watching after loading is done
-        proceed()
-      }
+    await new Promise<void>((resolve) => {
+      const unwatch = watch(loading, (isLoading) => {
+        if (!isLoading) {
+          unwatch()
+          resolve()
+        }
+      })
     })
-  } else {
-    proceed()
   }
-  //proceed to home
-  function proceed() {
-    if (to.meta.requiresAuth && !isLoggedIn.value) {
-      next({ name: 'home' }) // Redirect to home if not logged in
-    } else {
-      next() // Proceed to the route
-    }
+
+  if (to.meta.requiresAuth && !isLoggedIn.value) {
+    return { name: 'home' }
   }
+  return true
 })
 
 export default router
